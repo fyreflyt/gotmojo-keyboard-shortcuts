@@ -13,3 +13,4 @@ $(window).bind('keydown', function(event) {
         }
     }
 });
+$(".resource-items-container").css('flex-flow','row wrap-reverse');
