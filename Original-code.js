@@ -21,3 +21,16 @@ jQuery(".a-icon-images")
       jQuery(".resource-items-container").css("flex-flow", "row wrap-reverse");
     }, 50);
   });
+
+// Adds a left pointing triangle to the current page in the Pages Dialog
+jQuery(".a-icon-pages")
+  .closest("button")
+  .bind("click", function() {
+    var bk_pagename = $(".breadcrumb-item:first-child").text();
+
+    setTimeout(function() {
+      jQuery(".a-table__cell-name>a:contains(" + bk_pagename + ")").append(
+        "\u25C0"
+      );
+    }, 50);
+  });
