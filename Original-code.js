@@ -1,6 +1,8 @@
 $(document).keyup(function(e) {
   if (e.keyCode === 27) {
-     $(".a-icon-close").closest("button").click();
+    $(".a-icon-close")
+      .closest("button")
+      .click();
   }
 });
 $(window).bind("keydown", function(event) {
