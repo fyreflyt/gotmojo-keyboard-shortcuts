@@ -1,6 +1,6 @@
 $(document).keyup(function(e) {
   if (e.keyCode === 27) {
-    $(".a-modal-item__close").click();
+     $(".a-icon-close").closest("button").click();
   }
 });
 $(window).bind("keydown", function(event) {
