@@ -142,7 +142,7 @@ checkNode = function(addedNode) {
           '<form class="a-search-box a-filter-line__search" style="margin-left:auto;"><input type="text" placeholder="Nothing to see here yet" class="a-search-box__field" id="searchImages"  ><i class="a-icon-search a-search-box__icon"></i></form>'
         ); // Adds a search input to the right
 
-        // Filter function for images.
+        // Filter function for images. Thanks to https://makitweb.com/jquery-search-text-in-the-element-with-contains-selector/
         $("#searchImages").keyup(function() {
           // Search text
           var text = $(this)
