@@ -5,6 +5,8 @@
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @updateURL   https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/blob/master/mojo-userscript.user.js
+// @downloadURL https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/blob/master/mojo-userscript.user.js
 // ==/UserScript==
 
 /* Set jQuery to noConflict mode, allowing us to use the $ */
@@ -50,7 +52,6 @@ function debounce(func, wait, immediate) {
 }
 
 /* Keyboard Shortcut reference. Future work. */
-
 $(
   '<button type="button" class="a-button-icon" title="Not ready yet"><span class="a-button__container"><span class="a-button__text"></span><i class="fa fa-keyboard-o" aria-hidden="true" style="font-size: 22px;"></i></span></button>'
 ).insertBefore(".a-button--second");
@@ -142,30 +143,32 @@ checkNode = function(addedNode) {
           '<form class="a-search-box a-filter-line__search" style="margin-left:auto;"><input type="text" placeholder="Nothing to see here yet" class="a-search-box__field" id="searchImages"  ><i class="a-icon-search a-search-box__icon"></i></form>'
         ); // Adds a search input to the right
 
-        // Filter function for images. Thanks to https://makitweb.com/jquery-search-text-in-the-element-with-contains-selector/
-        $("#searchImages").keyup(function() {
-          // Search text
-          var text = $(this)
-            .val()
-            .toLowerCase();
+        // Filter function for images.
+        $("#searchImages").keyup(
+          debounce(function() {
+            // Search text
+            var text = $(this)
+              .val()
+              .toLowerCase();
 
-          // Hide all content class element
-          $(".resource-item").hide();
+            // Hide all content class element
+            $(".resource-item").hide();
 
-          // Search
-          $(".resource-item .resource-title").each(function() {
-            if (
-              $(this)
-                .text()
-                .toLowerCase()
-                .indexOf("" + text + "") != -1
-            ) {
-              $(this)
-                .closest(".resource-item")
-                .show();
-            }
-          });
-        });
+            // Search
+            $(".resource-item .resource-title").each(function() {
+              if (
+                $(this)
+                  .text()
+                  .toLowerCase()
+                  .indexOf("" + text + "") != -1
+              ) {
+                $(this)
+                  .closest(".resource-item")
+                  .show();
+              }
+            });
+          }, 300)
+        ); //search items end
       }
 
       if (document.querySelector(".a-table") !== null) {
@@ -183,6 +186,8 @@ checkNode = function(addedNode) {
             block: "start" // or "end"
           });
       }
+    } else if (addedNode.matches(".a-modal-item")) {
+      console.log("item modal opened");
     }
   }
 };
