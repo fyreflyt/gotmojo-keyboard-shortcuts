@@ -66,16 +66,6 @@ jQuery(document).keyup(function(e) {
   }
 });
 
-/* Filter function for images. Need to properly target
-
-$("#searchImages").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#resource-items-container *").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-*/
-
 $(window).bind("keydown", function(event) {
   if (event.ctrlKey || event.metaKey) {
     switch (String.fromCharCode(event.which).toLowerCase()) {
@@ -151,6 +141,8 @@ checkNode = function(addedNode) {
         $(".a-tabs-nav").append(
           '<form class="a-search-box a-filter-line__search" style="margin-left:auto;"><input type="text" placeholder="Nothing to see here yet" class="a-search-box__field" id="searchImages"  ><i class="a-icon-search a-search-box__icon"></i></form>'
         ); // Adds a search input to the right
+
+        // Filter function for images.
         $("#searchImages").keyup(function() {
           // Search text
           var text = $(this)
