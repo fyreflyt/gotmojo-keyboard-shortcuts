@@ -5,6 +5,8 @@
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @updateURL   https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/blob/master/mojo-userscript.user.js
+// @downloadURL https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/blob/master/mojo-userscript.user.js
 // ==/UserScript==
 
 /* Set jQuery to noConflict mode, allowing us to use the $ */
@@ -50,7 +52,6 @@ function debounce(func, wait, immediate) {
 }
 
 /* Keyboard Shortcut reference. Future work. */
-
 $(
   '<button type="button" class="a-button-icon" title="Not ready yet"><span class="a-button__container"><span class="a-button__text"></span><i class="fa fa-keyboard-o" aria-hidden="true" style="font-size: 22px;"></i></span></button>'
 ).insertBefore(".a-button--second");
