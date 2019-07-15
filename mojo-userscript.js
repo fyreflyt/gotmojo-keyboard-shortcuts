@@ -140,12 +140,6 @@ observer.observe(document.documentElement, {
   subtree: true
 });
 
-/*$('#searchImages').keyup(debounce(function(){
-  var txt = $('#searchImages').val();
-  console.log(txt);
-  $('.resource-item:contains("'+txt+'")').show();
-},500));*/
-
 /* Watches for a specific node to be added */
 checkNode = function(addedNode) {
   if (addedNode.nodeType === 1) {
