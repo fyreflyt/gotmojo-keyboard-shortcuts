@@ -144,29 +144,31 @@ checkNode = function(addedNode) {
         ); // Adds a search input to the right
 
         // Filter function for images.
-        $("#searchImages").keyup(function() {
-          // Search text
-          var text = $(this)
-            .val()
-            .toLowerCase();
+        $("#searchImages").keyup(
+          debounce(function() {
+            // Search text
+            var text = $(this)
+              .val()
+              .toLowerCase();
 
-          // Hide all content class element
-          $(".resource-item").hide();
+            // Hide all content class element
+            $(".resource-item").hide();
 
-          // Search
-          $(".resource-item .resource-title").each(function() {
-            if (
-              $(this)
-                .text()
-                .toLowerCase()
-                .indexOf("" + text + "") != -1
-            ) {
-              $(this)
-                .closest(".resource-item")
-                .show();
-            }
-          });
-        });
+            // Search
+            $(".resource-item .resource-title").each(function() {
+              if (
+                $(this)
+                  .text()
+                  .toLowerCase()
+                  .indexOf("" + text + "") != -1
+              ) {
+                $(this)
+                  .closest(".resource-item")
+                  .show();
+              }
+            });
+          }, 300)
+        ); //search items end
       }
 
       if (document.querySelector(".a-table") !== null) {
@@ -184,6 +186,8 @@ checkNode = function(addedNode) {
             block: "start" // or "end"
           });
       }
+    } else if (addedNode.matches(".a-modal-item")) {
+      console.log("item modal opened");
     }
   }
 };
