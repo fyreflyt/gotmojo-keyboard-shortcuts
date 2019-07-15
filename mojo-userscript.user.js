@@ -139,7 +139,7 @@ checkNode = function(addedNode) {
           .attr("id", "resource-items-container")
           .reverseChildren(); // Shows newest images first and adds an id
         $(".a-tabs-nav").append(
-          '<form class="a-search-box a-filter-line__search" style="margin-left:auto;"><input type="text" placeholder="Nothing to see here yet" class="a-search-box__field" id="searchImages"  ><i class="a-icon-search a-search-box__icon"></i></form>'
+          '<form class="a-search-box a-filter-line__search" style="margin-left:auto;"><input type="text" placeholder="Search by image filename" class="a-search-box__field" id="searchImages"><i class="a-icon-search a-search-box__icon"></i></form>'
         ); // Adds a search input to the right
 
         // Filter function for images.
