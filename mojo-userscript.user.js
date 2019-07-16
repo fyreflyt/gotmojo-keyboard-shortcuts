@@ -188,6 +188,15 @@ checkNode = function(addedNode) {
       }
     } else if (addedNode.matches(".a-modal-item")) {
       console.log("item modal opened");
+    } else if (addedNode.matches(".a-modal-item .color-picker")) {
+      console.log("color picker opened");
+      // $target = $(event.target);
+      // if (
+      //   !$target.closest(".color-picker").length &&
+      //   $(".color-picker").is(":visible")
+      // ) {
+      //   $(".color-picker").prev('.input-group').find('.form-input').click();
+      // }
     }
   }
 };
