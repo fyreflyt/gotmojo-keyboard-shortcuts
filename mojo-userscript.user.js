@@ -5,8 +5,8 @@
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
-// @updateURL   https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/blob/master/mojo-userscript.user.js
-// @downloadURL https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/blob/master/mojo-userscript.user.js
+// @updateURL   https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/raw/master/mojo-userscript.user.js
+// @downloadURL https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/raw/master/mojo-userscript.user.js
 // ==/UserScript==
 
 /* Set jQuery to noConflict mode, allowing us to use the $ */
@@ -140,8 +140,8 @@ checkNode = function(addedNode) {
           .attr("id", "resource-items-container")
           .reverseChildren(); // Shows newest images first and adds an id
         $(".a-tabs-nav").append(
-          '<form class="a-search-box a-filter-line__search" style="margin-left:auto;"><input type="text" placeholder="Nothing to see here yet" class="a-search-box__field" id="searchImages"  ><i class="a-icon-search a-search-box__icon"></i></form>'
-        ); // Adds a search input to the right
+          '<form class="a-search-box a-filter-line__search" style="margin-left:auto;"><input type="text" placeholder="Search by image filename" class="a-search-box__field" id="searchImages"><i class="a-icon-search a-search-box__icon"></i></form>'
+        ); // Adds a search input to the right in the images dialog
 
         // Filter function for images.
         $("#searchImages").keyup(
@@ -177,7 +177,7 @@ checkNode = function(addedNode) {
           .trim();
         $(".a-table__cell-name>a:contains(" + bk_pagename + ")")
           .attr("id", "current-page")
-          .append("\u25C0"); //Adds an indicator to the current page being edited
+          .append("\u25C0"); //Adds an indicator to the current page being edited. Needs to be an exact match though.
         $("#current-page")
           .parent()[0]
           .scrollIntoView({
@@ -190,13 +190,16 @@ checkNode = function(addedNode) {
       console.log("item modal opened");
     } else if (addedNode.matches(".a-modal-item .color-picker")) {
       console.log("color picker opened");
-      // $target = $(event.target);
-      // if (
-      //   !$target.closest(".color-picker").length &&
-      //   $(".color-picker").is(":visible")
-      // ) {
-      //   $(".color-picker").prev('.input-group').find('.form-input').click();
-      // }
+      // $(document).click(function(event) {
+      //   $target = $(event.target);
+      //   if (
+      //     !$target.closest(".color-picker").length &&
+      //     $(".color-picker").is(":visible")
+      //   ) {
+      //     $('.form-input[placeholder="#Color"]').click();
+      //     // $(".color-picker").prev('.input-group').find('.form-input').click();
+      //   }
+      // });
     }
   }
 };
