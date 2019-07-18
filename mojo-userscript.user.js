@@ -177,7 +177,7 @@ checkNode = function(addedNode) {
           .trim();
         $(".a-table__cell-name>a:contains(" + bk_pagename + ")")
           .attr("id", "current-page")
-          .append("\u25C0"); //Adds an indicator to the current page being edited
+          .append("\u25C0"); //Adds an indicator to the current page being edited. Needs to be an exact match though.
         $("#current-page")
           .parent()[0]
           .scrollIntoView({
