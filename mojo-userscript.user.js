@@ -5,8 +5,8 @@
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
-// @updateURL   https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/blob/master/mojo-userscript.user.js
-// @downloadURL https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/blob/master/mojo-userscript.user.js
+// @updateURL   https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/raw/master/mojo-userscript.user.js
+// @downloadURL https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/raw/master/mojo-userscript.user.js
 // ==/UserScript==
 
 /* Set jQuery to noConflict mode, allowing us to use the $ */
