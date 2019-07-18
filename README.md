@@ -1,6 +1,6 @@
 # gotmojo-keyboard-shortcuts
 
-A Bookmarklet to add keyboard shortcuts to the Mojo DR ecommerce platform page editor.
+A userscript to add keyboard shortcuts to the Mojo DR ecommerce platform page editor.
 
 This userscript adds some features to Mojo, improving the workflow and making my (and your) life easier when building pages with Mojo.
 
