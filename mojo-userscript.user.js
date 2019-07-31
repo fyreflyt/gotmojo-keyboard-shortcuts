@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name     Mojo Workflow enhancements
 // @description  Fixes some rough edges in Mojo and improves the workflow - by Mike Cordeiro
-// @version  1.31
+// @version  1.32
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
@@ -33,6 +33,17 @@ jQuery.extend(jQuery.expr[":"], {
     return false;
   }
 });
+
+// Add a pseudo function that behaves like :contain, but searchs for an exact match. Ex: $('p:textEquals("Hello World")');
+// https://stackoverflow.com/questions/15364298/select-element-by-exact-match-of-its-content
+$.expr[":"].textEquals = function(el, i, m) {
+  var searchText = m[3];
+  var match = $(el)
+    .text()
+    .trim()
+    .match("^" + searchText + "$");
+  return match && match.length > 0;
+};
 
 //http://davidwalsh.name/javascript-debounce-function
 function debounce(func, wait, immediate) {
@@ -139,7 +150,7 @@ checkNode = function(addedNode) {
         $(".resource-items-container")
           .attr("id", "resource-items-container")
           .reverseChildren(); // Shows newest images first and adds an id
-        $(".a-tabs-nav").append(
+        $(".a-tabs-nav:contains('User')").append(
           '<form class="a-search-box a-filter-line__search" style="margin-left:auto;"><input type="text" placeholder="Search by image filename" class="a-search-box__field" id="searchImages"><i class="a-icon-search a-search-box__icon"></i></form>'
         ); // Adds a search input to the right in the images dialog
 
@@ -175,7 +186,7 @@ checkNode = function(addedNode) {
         var bk_pagename = $(".breadcrumb-item:first-child")
           .text()
           .trim();
-        $(".a-table__cell-name>a:contains(" + bk_pagename + ")")
+        $(".a-table__cell-name>a:textEquals(" + bk_pagename + ")")
           .attr("id", "current-page")
           .append("\u25C0"); //Adds an indicator to the current page being edited. Needs to be an exact match though.
         $("#current-page")
