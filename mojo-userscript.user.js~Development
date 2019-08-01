@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name     Mojo Workflow enhancements
 // @description  Fixes some rough edges in Mojo and improves the workflow - by Mike Cordeiro
-// @version  1.3
+// @version  1.3.5
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
