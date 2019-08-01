@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name     Mojo Workflow enhancements
 // @description  Fixes some rough edges in Mojo and improves the workflow - by Mike Cordeiro
-// @version  1.3.4
+// @version  1.3.5
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
@@ -79,7 +79,14 @@ jQuery(document).keyup(function(e) {
 });
 
 $(window).bind("keydown", function(event) {
-  if (event.ctrlKey || event.metaKey) {
+  if ((event.ctrlKey || event.metaKey) && event.shiftKey) {
+    switch (String.fromCharCode(event.which)) {
+      case "Z":
+        event.preventDefault();
+        $(".a-button-icon[title='Redo']").click(); // Ctrl/Cmd-Shift-Z to Redo
+        break;
+    }
+  } else if (event.ctrlKey || event.metaKey) {
     switch (String.fromCharCode(event.which).toLowerCase()) {
       case "s":
         event.preventDefault();
@@ -118,14 +125,7 @@ $(window).bind("keydown", function(event) {
         $(".a-button-icon[title='Redo']").click(); // Ctrl/Cmd-Y to Redo
         break;
     }
-  } /*else if ((event.ctrlKey || event.metaKey) && event.shiftKey ) { This need to go first
-    switch (String.fromCharCode(event.which)) {
-      case "Z":
-        event.preventDefault();
-        $(".a-button-icon[title='Redo']").click();
-        break;
-    }
-  }*/
+  }
 });
 
 /* Detecting when the DOM changes */
