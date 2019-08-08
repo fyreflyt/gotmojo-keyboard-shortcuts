@@ -200,13 +200,28 @@ checkNode = function(addedNode) {
       console.log("item modal opened");
     } else if (addedNode.matches(".a-modal-item .color-picker")) {
       console.log("color picker opened");
+      $(document).click(function(e) {
+        var container = $(".color-picker"); // YOUR CONTAINER SELECTOR
+
+        if (
+          !container.is(e.target) && // if the target of the click isn't the container...
+          container.has(e.target).length === 0
+        ) {
+          // ... nor a descendant of the container
+          console.log("clicked outside");
+          $(".color-picker")
+            .prev(".input-group")
+            .find(".form-input")
+            .click();
+        }
+      });
       // $(document).click(function(event) {
       //   $target = $(event.target);
       //   if (
       //     !$target.closest(".color-picker").length &&
       //     $(".color-picker").is(":visible")
       //   ) {
-      //     $('.form-input[placeholder="#Color"]').click();
+      //     $('.input-group .form-input[placeholder="#Color"]').click();
       //     // $(".color-picker").prev('.input-group').find('.form-input').click();
       //   }
       // });
