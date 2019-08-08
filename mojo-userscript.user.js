@@ -5,6 +5,7 @@
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @require  https://media.thanedirect.com/js/jquery-clickout-min.js
 // @downloadURL https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/raw/master/mojo-userscript.user.js
 // ==/UserScript==
 
@@ -197,24 +198,34 @@ checkNode = function(addedNode) {
           });
       }
     } else if (addedNode.matches(".a-modal-item")) {
+      if (document.querySelector(".color-picker") !== null) {
+        console.log("color picker opened");
+      }
       console.log("item modal opened");
-    } else if (addedNode.matches(".a-modal-item .color-picker")) {
-      console.log("color picker opened");
-      $(document).click(function(e) {
-        var container = $(".color-picker"); // YOUR CONTAINER SELECTOR
+    } /* else if (addedNode.matches(".a-modal-item .color-picker")) {
 
-        if (
-          !container.is(e.target) && // if the target of the click isn't the container...
-          container.has(e.target).length === 0
-        ) {
-          // ... nor a descendant of the container
-          console.log("clicked outside");
-          $(".color-picker")
-            .prev(".input-group")
-            .find(".form-input")
-            .click();
-        }
+      $(".color-picker").clickout(function() {
+        console.log("you clicked");
+        $(".color-picker")
+          .prev(".input-group")
+          .find(".form-input")
+          .click();
       });
+      // $(document).click(function(e) {
+      //   var container = $(".color-picker"); // YOUR CONTAINER SELECTOR
+      //
+      //   if (
+      //     !container.is(e.target) && // if the target of the click isn't the container...
+      //     container.has(e.target).length === 0
+      //   ) {
+      //     // ... nor a descendant of the container
+      //     console.log("clicked outside");
+      // $(".color-picker")
+      //   .prev(".input-group")
+      //   .find(".form-input")
+      //   .click();
+      //   }
+      // });
       // $(document).click(function(event) {
       //   $target = $(event.target);
       //   if (
@@ -222,10 +233,10 @@ checkNode = function(addedNode) {
       //     $(".color-picker").is(":visible")
       //   ) {
       //     $('.input-group .form-input[placeholder="#Color"]').click();
-      //     // $(".color-picker").prev('.input-group').find('.form-input').click();
+      //     $(".color-picker").prev('.input-group').find('.form-input').click();
       //   }
       // });
-    }
+    } */
   }
 };
 
