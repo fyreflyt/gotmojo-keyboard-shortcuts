@@ -235,7 +235,6 @@ checkNode = function(addedNode) {
           $(".color-picker")
             .prev(".input-group")
             .find(".form-input")
-            .css("border", "3px solid")
             .simulateClick("click");
           $(this).off("clickout");
         });
