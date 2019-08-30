@@ -62,6 +62,36 @@ function debounce(func, wait, immediate) {
   };
 }
 
+// Simulates a mouseclick https://stackoverflow.com/questions/20928915/how-to-get-jquery-triggerclick-to-initiate-a-mouse-click
+jQuery.fn.simulateClick = function() {
+  return this.each(function() {
+    if ("createEvent" in document) {
+      var doc = this.ownerDocument,
+        evt = doc.createEvent("MouseEvents");
+      evt.initMouseEvent(
+        "click",
+        true,
+        true,
+        doc.defaultView,
+        1,
+        0,
+        0,
+        0,
+        0,
+        false,
+        false,
+        false,
+        false,
+        0,
+        null
+      );
+      this.dispatchEvent(evt);
+    } else {
+      this.click(); // IE Boss!
+    }
+  });
+};
+
 /* Keyboard Shortcut reference. Future work. */
 $(
   '<button type="button" class="a-button-icon" title="Not ready yet"><span class="a-button__container"><span class="a-button__text"></span><i class="fa fa-keyboard-o" aria-hidden="true" style="font-size: 22px;"></i></span></button>'
@@ -197,9 +227,18 @@ checkNode = function(addedNode) {
             block: "start" // or "end"
           });
       }
-    } else if (addedNode.matches(".a-modal-item")) {
+    } else if (addedNode.matches(".color-picker")) {
       if (document.querySelector(".color-picker") !== null) {
         console.log("color picker opened");
+        $(".color-picker").clickout(function() {
+          console.log("Clickout called");
+          $(".color-picker")
+            .prev(".input-group")
+            .find(".form-input")
+            .css("border", "3px solid")
+            .simulateClick("click");
+          $(this).off("clickout");
+        });
       }
       console.log("item modal opened");
     } /* else if (addedNode.matches(".a-modal-item .color-picker")) {
