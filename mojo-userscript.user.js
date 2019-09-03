@@ -229,9 +229,9 @@ checkNode = function(addedNode) {
       }
     } else if (addedNode.matches(".color-picker")) {
       if (document.querySelector(".color-picker") !== null) {
-        console.log("color picker opened");
+        // console.log("color picker opened");
         $(".color-picker").clickout(function() {
-          console.log("Clickout called");
+          // console.log("Clickout called");
           $(".color-picker")
             .prev(".input-group")
             .find(".form-input")
@@ -239,43 +239,7 @@ checkNode = function(addedNode) {
           $(this).off("clickout");
         });
       }
-      console.log("item modal opened");
-    } /* else if (addedNode.matches(".a-modal-item .color-picker")) {
-
-      $(".color-picker").clickout(function() {
-        console.log("you clicked");
-        $(".color-picker")
-          .prev(".input-group")
-          .find(".form-input")
-          .click();
-      });
-      // $(document).click(function(e) {
-      //   var container = $(".color-picker"); // YOUR CONTAINER SELECTOR
-      //
-      //   if (
-      //     !container.is(e.target) && // if the target of the click isn't the container...
-      //     container.has(e.target).length === 0
-      //   ) {
-      //     // ... nor a descendant of the container
-      //     console.log("clicked outside");
-      // $(".color-picker")
-      //   .prev(".input-group")
-      //   .find(".form-input")
-      //   .click();
-      //   }
-      // });
-      // $(document).click(function(event) {
-      //   $target = $(event.target);
-      //   if (
-      //     !$target.closest(".color-picker").length &&
-      //     $(".color-picker").is(":visible")
-      //   ) {
-      //     $('.input-group .form-input[placeholder="#Color"]').click();
-      //     $(".color-picker").prev('.input-group').find('.form-input').click();
-      //   }
-      // });
-    } */
+      // console.log("item modal opened");
+    }
   }
 };
-
-// $('.form-input[placeholder="#Color"]').click(); -- Step 1 of hiding the colour modal when clicked outside of the box.
