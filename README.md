@@ -6,7 +6,7 @@ This userscript adds some features to Mojo, improving the workflow and making my
 
 Here are the features for Version 1.3
 
-## Version 1.3
+## Version 1.3.6
 
 ### Keyboard Shortcuts
 
@@ -23,3 +23,4 @@ Here are the features for Version 1.3
 - Search for images by filename
 - Pages Dialog highlights current page with an arrow
 - Current page in Pages Dialog is moved to the top of the scrollable window
+- Click outside colour picker to dismiss (Beta)
