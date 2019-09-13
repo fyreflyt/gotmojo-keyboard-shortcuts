@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name     Mojo Workflow enhancements
 // @description  Fixes some rough edges in Mojo and improves the workflow - by Mike Cordeiro
-// @version  1.3.6
+// @version  1.4
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @require  https://media.thanedirect.com/js/jquery-clickout-min.js
+// @require  https://media.thanedirect.com/js/keymaster.min.js
 // @downloadURL https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/raw/master/mojo-userscript.user.js
 // ==/UserScript==
 
@@ -97,65 +98,46 @@ $(
   '<button type="button" class="a-button-icon" title="Not ready yet"><span class="a-button__container"><span class="a-button__text"></span><i class="fa fa-keyboard-o" aria-hidden="true" style="font-size: 22px;"></i></span></button>'
 ).insertBefore(".a-button--second");
 
-/* Keyboard Shortcuts */
+/* Keyboard Shortcuts via keymaster.js */
 
-jQuery(document).keyup(function(e) {
-  // Esc key to close windows
-  if (e.keyCode === 27) {
-    jQuery(".a-icon-close")
-      .closest("button")
-      .click();
-  }
+key("esc", function() {
+  $(".a-icon-close")
+    .closest("button")
+    .click();
 });
-
-$(window).bind("keydown", function(event) {
-  if ((event.ctrlKey || event.metaKey) && event.shiftKey) {
-    switch (String.fromCharCode(event.which)) {
-      case "Z":
-        event.preventDefault();
-        $(".a-button-icon[title='Redo']").click(); // Ctrl/Cmd-Shift-Z to Redo
-        break;
-    }
-  } else if (event.ctrlKey || event.metaKey) {
-    switch (String.fromCharCode(event.which).toLowerCase()) {
-      case "s":
-        event.preventDefault();
-        $(".a-button--save").click(); // Ctrl/Cmd-S to Save
-        break;
-      case "e":
-        event.preventDefault();
-        $(".a-button--second").click(); // Ctrl/Cmd-P to Preview
-        break;
-      case "1":
-        event.preventDefault();
-        $(".a-button-icon--view[title='Mobile View']").click(); // Ctrl/Cmd-1-5 to view Mobile through Large Desktop View
-        break;
-      case "2":
-        event.preventDefault();
-        $(".a-button-icon--view[title='Tablet View']").click();
-        break;
-      case "3":
-        event.preventDefault();
-        $(".a-button-icon--view[title='Desktop View']").click();
-        break;
-      case "4":
-        event.preventDefault();
-        $(".a-button-icon--view[title='Large Desktop View']").click();
-        break;
-      case "5":
-        event.preventDefault();
-        $(".a-button-icon--view[title='Extra Large Desktop View']").click();
-        break;
-      case "z":
-        event.preventDefault();
-        $(".a-button-icon[title='Undo']").click(); // Ctrl/Cmd-Z to Undo
-        break;
-      case "y":
-        event.preventDefault();
-        $(".a-button-icon[title='Redo']").click(); // Ctrl/Cmd-Y to Redo
-        break;
-    }
-  }
+key("ctrl+z, command+z", function() {
+  $(".a-button-icon[title='Undo']").click(); // Ctrl/Cmd-Z to Undo
+});
+key("ctrl+shift+z, command+shift+z, ctrl+y, command+y", function() {
+  $(".a-button-icon[title='Redo']").click(); // Ctrl/Cmd-Shift-Z to Redo
+});
+key("ctrl+s, command+s", function() {
+  $(".a-button--save").click(); // Ctrl/Cmd-S to Save
+  return false; // Prevents the keystroke from reaching the browser
+});
+key("ctrl+e, command+e", function() {
+  $(".a-button--second").click(); // Ctrl/Cmd-E to Preview
+  return false;
+});
+key("ctrl+1, command+1", function() {
+  $(".a-button-icon--view[title='Mobile View']").click(); // Ctrl/Cmd-1-5 to view Mobile through Large Desktop View
+  return false;
+});
+key("ctrl+2, command+2", function() {
+  $(".a-button-icon--view[title='Tablet View']").click();
+  return false;
+});
+key("ctrl+3, command+3", function() {
+  $(".a-button-icon--view[title='Desktop View']").click();
+  return false;
+});
+key("ctrl+4, command+4", function() {
+  $(".a-button-icon--view[title='Large Desktop View']").click();
+  return false;
+});
+key("ctrl+5, command+5", function() {
+  $(".a-button-icon--view[title='Extra Large Desktop View']").click();
+  return false;
 });
 
 /* Detecting when the DOM changes */
@@ -229,9 +211,7 @@ checkNode = function(addedNode) {
       }
     } else if (addedNode.matches(".color-picker")) {
       if (document.querySelector(".color-picker") !== null) {
-        // console.log("color picker opened");
         $(".color-picker").clickout(function() {
-          // console.log("Clickout called");
           $(".color-picker")
             .prev(".input-group")
             .find(".form-input")
@@ -239,7 +219,8 @@ checkNode = function(addedNode) {
           $(this).off("clickout");
         });
       }
-      // console.log("item modal opened");
     }
   }
 };
+
+// $('footer section').load("https://admin.gotmojo.com/conjure2/editor/preview/2063/31255 .template-footer-global");
