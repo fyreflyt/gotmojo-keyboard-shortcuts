@@ -4,9 +4,9 @@ A userscript to add keyboard shortcuts to the Mojo DR ecommerce platform page ed
 
 This userscript adds some features to Mojo, improving the workflow and making my (and your) life easier when building pages with Mojo.
 
-Here are the features for Version 1.3
+Here are the features for Version 1.4
 
-## Version 1.3.6
+## Version 1.4.1
 
 ### Keyboard Shortcuts
 
@@ -16,6 +16,7 @@ Here are the features for Version 1.3
 - Ctrl/Cmd-Z: Undo
 - Ctrl/Cmd-Y: Redo
 - Esc key: Close dialog Windows
+- Delete/Backspace key: Delete selected element (New with 1.4.1)
 
 ### Workflow enhancements
 
