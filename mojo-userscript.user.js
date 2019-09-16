@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name     Mojo Workflow enhancements
 // @description  Fixes some rough edges in Mojo and improves the workflow - by Mike Cordeiro
-// @version  1.4
+// @version  1.4.1
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
@@ -218,6 +218,16 @@ checkNode = function(addedNode) {
             .simulateClick("click");
           $(this).off("clickout");
         });
+      }
+    } else if (addedNode.matches(".conjure-selection-box")) {
+      if ((document.querySelector(".conjure-action-panel") !== null) && ($(".conjure-action-panel>i.fa-trash") !== null) ) {
+        // console.log("editing element");
+        key("delete, backspace", function() {
+          $(".conjure-action-panel i.fa-trash").parent().click();
+          return false;
+        });
+      } else {
+        key.unbind('delete, backspace');
       }
     }
   }
