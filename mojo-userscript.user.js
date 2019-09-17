@@ -101,7 +101,7 @@ jQuery.fn.simulateClick = function() {
 
 /* Keyboard Shortcut reference. Future work. */
 $(
-  '<button type="button" class="a-button-icon" title="Not ready yet"><span class="a-button__container"><span class="a-button__text"></span><i class="fa fa-keyboard-o" aria-hidden="true" style="font-size: 22px;"></i></span></button>'
+  '<button type="button" class="a-button-icon" title="View Keyboard shortcuts"><span class="a-button__container"><span class="a-button__text"></span><i class="fa fa-keyboard-o" aria-hidden="true" style="font-size: 22px;"></i></span></button>'
 )
   .insertBefore(".a-button--second")
   .click(function() {
