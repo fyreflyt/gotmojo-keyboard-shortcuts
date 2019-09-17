@@ -291,7 +291,7 @@ checkNode = function(addedNode) {
           $(".conjure-action-panel i.fa-trash")
             .parent()
             .click();
-          return false;
+          //  return false;
         });
       } else {
         key.unbind("delete, backspace");
