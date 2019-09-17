@@ -46,6 +46,12 @@ $.expr[":"].textEquals = function(el, i, m) {
   return match && match.length > 0;
 };
 
+// Add a pseudo function that finds empty elements with :blank. Ex: $('.thumbnails:blank').addClass('selected');
+// https://stackoverflow.com/questions/14198957/jquery-selector-for-a-empty-div
+$.expr[":"].blank = function(obj) {
+  return obj.innerHTML.trim().length === 0;
+};
+
 //http://davidwalsh.name/javascript-debounce-function
 function debounce(func, wait, immediate) {
   var timeout;
@@ -96,7 +102,63 @@ jQuery.fn.simulateClick = function() {
 /* Keyboard Shortcut reference. Future work. */
 $(
   '<button type="button" class="a-button-icon" title="Not ready yet"><span class="a-button__container"><span class="a-button__text"></span><i class="fa fa-keyboard-o" aria-hidden="true" style="font-size: 22px;"></i></span></button>'
-).insertBefore(".a-button--second");
+)
+  .insertBefore(".a-button--second")
+  .click(function() {
+    $("body > div > .conjure-ui:empty").prepend(modal_markup);
+  });
+
+var modal_markup = `<div class="a-modal key-shortcuts" id="kbd-shortcuts">
+    <div class="a-modal__overlay"></div>
+    <div class="a-modal-item is-active a-modal-item--full-screen">
+      <div class="a-modal-item__header">
+        <p class="a-modal-item__title">Keyboard Shortcuts</p>
+        <button type="button" class="a-button-area a-modal-item__close">
+          <span class="a-button-area__text">Close modal</span>
+          <i class="a-icon-close a-button-area__icon"></i>
+        </button>
+      </div>
+      <div class="a-modal-item__body">
+        <div class="columns">
+          <div class="column col-12">
+            <h3>Keyboard Shortcuts</h3>
+            <ul style="column-count: 2;">
+              <li>Ctrl/Command-E: Preview</li>
+              <li>Ctrl/Command-S: Save</li>
+              <li>Ctrl/Command-Z: Undo</li>
+              <li>Ctrl/Command-Shift-Z or Ctrl/Command-Y: Redo</li>
+              <li>Ctrl/Command-1: Mobile View</li>
+              <li>Ctrl/Command-2: Tablet View</li>
+              <li>Ctrl/Command-3: Desktop View</li>
+              <li>Ctrl/Command-4: Wide View</li>
+              <li>Ctrl/Command-5: Ultra Wide View</li>
+              <li>Esc key: Close dialog Windows</li>
+              <li>Delete/Backspace key: Delete selected element (New with 1.4.1)</li>
+            </ul>
+            <h3>Workflow Enhancements</h3>
+            <ul style="column-count: 2;">
+              <li>Images library items are displayed newest to oldest</li>
+              <li>Search for images by filename</li>
+              <li>Pages Dialog highlights current page with an arrow</li>
+              <li>Current page in Pages Dialog is moved to the top of the scrollable window</li>
+              <li>Click outside colour picker to dismiss (Beta)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="a-modal-item__footer">
+        <div style="display: inline-block;"></div>
+        <button type="button" class="a-button a-button--text a-modal-item__footer-button">
+          <span class="a-button__container">
+            <span class="a-button__text">Close</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>`;
+$(".conjure-ui").on("click", "#kbd-shortcuts button", function() {
+  $("#kbd-shortcuts").remove();
+});
 
 /* Keyboard Shortcuts via keymaster.js */
 
@@ -220,14 +282,19 @@ checkNode = function(addedNode) {
         });
       }
     } else if (addedNode.matches(".conjure-selection-box")) {
-      if ((document.querySelector(".conjure-action-panel") !== null) && ($(".conjure-action-panel>i.fa-trash") !== null) ) {
+      if (
+        document.querySelector(".conjure-action-panel") !== null &&
+        $(".conjure-action-panel>i.fa-trash") !== null
+      ) {
         // console.log("editing element");
         key("delete, backspace", function() {
-          $(".conjure-action-panel i.fa-trash").parent().click();
+          $(".conjure-action-panel i.fa-trash")
+            .parent()
+            .click();
           return false;
         });
       } else {
-        key.unbind('delete, backspace');
+        key.unbind("delete, backspace");
       }
     }
   }
