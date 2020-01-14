@@ -1,14 +1,19 @@
 // ==UserScript==
 // @name     Mojo Workflow enhancements
 // @description  Fixes some rough edges in Mojo and improves the workflow - by Mike Cordeiro
-// @version  1.4.3
+// @version  1.4.4
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @require  https://media.thanedirect.com/js/jquery-clickout-min.js
 // @require  https://media.thanedirect.com/js/keymaster.min.js
+// @require  https://media.thanedirect.com/js/push2.min.js
+// @resource customCSS https://media.thanedirect.com/css/userscript.css
 // @downloadURL https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/raw/master/mojo-userscript.user.js
 // ==/UserScript==
+
+// var newCSS = GM_getResourceText("customCSS");
+// GM_addStyle(newCSS);
 
 /* Set jQuery to noConflict mode, allowing us to use the $ */
 this.$ = this.jQuery = jQuery.noConflict(true);
@@ -99,7 +104,10 @@ jQuery.fn.simulateClick = function() {
   });
 };
 
-/* Keyboard Shortcut reference. Future work. */
+// Request permission to send notifications about Publish's
+Push.Permission.request();
+
+/* Keyboard Shortcut reference. */
 $(
   '<button type="button" class="a-button-icon" title="View Keyboard shortcuts"><span class="a-button__container"><span class="a-button__text"></span><i class="fa fa-keyboard-o" aria-hidden="true" style="font-size: 22px;"></i></span></button>'
 )
@@ -216,7 +224,7 @@ observer.observe(document.documentElement, {
   subtree: true
 });
 
-/* Watches for a specific node to be added */
+/* Watches for a specific node to be added. Update to use a switch statement? */
 checkNode = function(addedNode) {
   if (addedNode.nodeType === 1) {
     if (addedNode.matches(".a-modal")) {
@@ -296,8 +304,27 @@ checkNode = function(addedNode) {
       } else {
         key.unbind("delete, backspace");
       }
+    } else if (addedNode.matches(".notification-wrapper")) {
+      if ($(".notification-content:contains('Publish')").length > 0) {
+        Push.create("Site published", {
+          icon: "./Mojo-Logo-transparent-60w.png"
+        });
+      }
     }
   }
 };
 
 // $('footer section').load("https://admin.gotmojo.com/conjure2/editor/preview/2063/31255 .template-footer-global");
+
+// OS Notification on Successful Publish work
+/*
+<div class="notifications notifications-container" style="width: 300px; top: 0; right: 0;" >
+  <span>
+    <span class="notification-wrapper" style="transition: all 300ms ease 0s;">
+      <span class="vue-notification-template vue-notification success">
+        <span class="notification-content">Publish succeeded</span>
+      </span>
+    </span>
+  </span>
+</div>;
+*/

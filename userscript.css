@@ -1,0 +1,11 @@
+[class="compact"]
+  .a-tabs
+  .a-tabs__item.a-tabs__item--full
+  .form-horizontal::before {
+  position: absolute;
+  content: "\f0c1";
+  right: 81px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: FontAwesome;
+}
