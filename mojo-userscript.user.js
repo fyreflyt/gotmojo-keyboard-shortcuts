@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name     Mojo Workflow enhancements
 // @description  Fixes some rough edges in Mojo and improves the workflow - by Mike Cordeiro
-// @version  1.4.4
+// @version  1.4.5
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @require  https://media.thanedirect.com/js/jquery-clickout-min.js
 // @require  https://media.thanedirect.com/js/keymaster.min.js
 // @require  https://media.thanedirect.com/js/push2.min.js
+// @require  https://media.thanedirect.com/js/js.cookie-2.2.1.min.js
 // @resource customCSS https://media.thanedirect.com/css/userscript.css
 // @downloadURL https://github.com/fyreflyt/gotmojo-keyboard-shortcuts/raw/master/mojo-userscript.user.js
 // ==/UserScript==
@@ -243,10 +244,8 @@ checkNode = function(addedNode) {
             var text = $(this)
               .val()
               .toLowerCase();
-
             // Hide all content class element
             $(".resource-item").hide();
-
             // Search
             $(".resource-item .resource-title").each(function() {
               if (
@@ -309,6 +308,21 @@ checkNode = function(addedNode) {
         Push.create("Site published", {
           icon: "./Mojo-Logo-transparent-60w.png"
         });
+      }
+    } else if (addedNode.matches(".a-tabs__item")) {
+      // Remembers which library you last selected and sets it back to that
+      if (document.querySelector(".library-header") !== null) {
+        if (Cookies.get("selectedLibrary") !== null) {
+          var openThisLibrary = Cookies.get("selectedLibrary");
+          $(
+            "button.a-dropdown__button:contains('" + openThisLibrary + "')"
+          ).click();
+        }
+        $("button.a-dropdown__button").click(function() {
+          var libraryButtonClicked = $.trim($(this).text());
+          Cookies.set("selectedLibrary", libraryButtonClicked);
+        });
+        $("input.a-search-box__field").focus();
       }
     }
   }
