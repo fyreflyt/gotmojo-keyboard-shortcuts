@@ -6,7 +6,7 @@ This userscript adds some features to Mojo, improving the workflow and making my
 
 Here are the features for Version 1.4
 
-## Version 1.4.1
+## Version 1.4.4
 
 ### Keyboard Shortcuts
 
@@ -14,12 +14,14 @@ Here are the features for Version 1.4
 - Ctrl/Cmd-E: Preview
 - Ctrl/Cmd-1 through 5: Switch between Mobile and Extra Wide Desktop Responsive views
 - Ctrl/Cmd-Z: Undo
+- Ctrl-Cmd-Shift-Z: Undo
 - Ctrl/Cmd-Y: Redo
 - Esc key: Close dialog Windows
 - Delete/Backspace key: Delete selected element (New with 1.4.1)
 
 ### Workflow enhancements
 
+- Added notification when pages are published due to the time now required to publish sites (New with 1.4.4)
 - Images library items are displayed newest to oldest
 - Search for images by filename
 - Pages Dialog highlights current page with an arrow
