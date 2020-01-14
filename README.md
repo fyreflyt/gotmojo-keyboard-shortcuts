@@ -6,7 +6,7 @@ This userscript adds some features to Mojo, improving the workflow and making my
 
 Here are the features for Version 1.4
 
-## Version 1.4.4
+## Version 1.4.5
 
 ### Keyboard Shortcuts
 
@@ -21,6 +21,7 @@ Here are the features for Version 1.4
 
 ### Workflow enhancements
 
+- Remembers the last selected library and also sets focus to the library item search field (New with 1.4.5)
 - Added notification when pages are published due to the time now required to publish sites (New with 1.4.4)
 - Images library items are displayed newest to oldest
 - Search for images by filename
