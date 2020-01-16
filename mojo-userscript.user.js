@@ -218,6 +218,9 @@ var observer = new MutationObserver(function(mutations) {
       checkNode(mutations[i].addedNodes[j]);
     }
   }
+  mutations.forEach(function(mutation) {
+    console.log(mutation.attributeName + " changed");
+  });
   // Code to detect changes in .page__container id should go here. I think
 });
 
@@ -225,18 +228,7 @@ observer.observe(document.documentElement, {
   childList: true,
   subtree: true
 });
-
-var pageContainer = $(".page__container");
-
-var pageLoad = new MutationObserver(function() {
-  console.log("Pageload changed");
-});
-
-pageLoad.observe(pageContainer, {
-  childList: true,
-  subtree: true,
-  attributes: true
-});
+var foo = document.getElementsByClassName("page__container");
 
 /* Watches for a specific node to be added. Update to use a switch statement? */
 checkNode = function(addedNode) {
@@ -364,6 +356,7 @@ function customHTMLDisplay() {
 // Executes functions when the Mojo Template has loaded
 function templateLoaded() {
   customHTMLDisplay();
+  observer.observe(foo[0], { attributes: true, attributeFilter: ["id"] });
 }
 // $('footer section').load("https://admin.gotmojo.com/conjure2/editor/preview/2063/31255 .template-footer-global");
 
