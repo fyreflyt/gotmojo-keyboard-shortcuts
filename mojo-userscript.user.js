@@ -226,12 +226,15 @@ observer.observe(document.documentElement, {
   subtree: true
 });
 
+var pageContainer = $(".page__container");
+
 var pageLoad = new MutationObserver(function() {
   console.log("Pageload changed");
 });
 
-var pageContainer = document.querySelector(".page__container");
 pageLoad.observe(pageContainer, {
+  childList: true,
+  subtree: true,
   attributes: true
 });
 
