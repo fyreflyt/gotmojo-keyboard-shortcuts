@@ -339,10 +339,10 @@ checkNode = function(addedNode) {
         if (Cookies.get("selectedLibrary") !== null) {
           var openThisLibrary = Cookies.get("selectedLibrary");
           $(
-            "button.a-dropdown__button:contains('" + openThisLibrary + "')"
+            ".a-filter-line button.a-dropdown__button:contains('" + openThisLibrary + "')"
           ).click();
         }
-        $("button.a-dropdown__button").click(function() {
+        $(".a-filter-line button.a-dropdown__button").click(function() {
           var libraryButtonClicked = $.trim($(this).text());
           Cookies.set("selectedLibrary", libraryButtonClicked);
         });
