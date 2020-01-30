@@ -298,16 +298,16 @@ checkNode = function(addedNode) {
             block: "start" // or "end"
           });
       }
-    } else if (addedNode.matches(".color-picker")) {
-      if (document.querySelector(".color-picker") !== null) {
-        $(".color-picker").clickout(function() {
-          $(".color-picker")
-            .prev(".input-group")
-            .find(".form-input")
-            .simulateClick("click");
-          $(this).off("clickout");
-        });
-      }
+    // } else if (addedNode.matches(".color-picker")) {
+    //   if (document.querySelector(".color-picker") !== null) {
+    //     $(".color-picker").clickout(function() {
+    //       $(".color-picker")
+    //         .prev(".input-group")
+    //         .find(".form-input")
+    //         .simulateClick("click");
+    //       $(this).off("clickout");
+    //     });
+    //   }
     } else if (addedNode.matches(".conjure-selection-box")) {
       if (
         document.querySelector(".conjure-action-panel") !== null &&
