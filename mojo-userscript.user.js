@@ -219,16 +219,31 @@ var observer = new MutationObserver(function(mutations) {
     }
   }
   mutations.forEach(function(mutation) {
-    console.log(mutation.attributeName + " changed");
+    if (mutation.attributeName == "id") {
+      console.log(mutation + " changed");
+      customHTMLDisplay();
+    }
   });
   // Code to detect changes in .page__container id should go here. I think
 });
 
 observer.observe(document.documentElement, {
   childList: true,
-  subtree: true
+  subtree: true,
+  attributes: true
 });
-var foo = document.getElementsByClassName("page__container");
+
+// var targetNode = document.querySelector(".page__container");
+// var targetConfig = {
+//   childList: true,
+//   subtree: true,
+//   attributes: true,
+//   attributeFilter: ["id"]
+// };
+// var fuckingShit = new MutationObserver(function() {
+//   console.log("fucking shit");
+// });
+// fuckingShit.observe(targetNode, targetConfig);
 
 /* Watches for a specific node to be added. Update to use a switch statement? */
 checkNode = function(addedNode) {
@@ -342,11 +357,12 @@ function customHTMLDisplay() {
   $(".grid__cell > div").each(function() {
     if ($(this).height() === 0) {
       $(this)
-        .height(50)
+
         .css({
           "background-color": "#fff",
           "background-image": `url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23bfbfbf' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E")`,
-          "text-align": "center"
+          "text-align": "center",
+          "min-height": "50px"
         })
         .append("<p>Custom HTML</p>");
     }
@@ -356,7 +372,6 @@ function customHTMLDisplay() {
 // Executes functions when the Mojo Template has loaded
 function templateLoaded() {
   customHTMLDisplay();
-  observer.observe(foo[0], { attributes: true, attributeFilter: ["id"] });
 }
 // $('footer section').load("https://admin.gotmojo.com/conjure2/editor/preview/2063/31255 .template-footer-global");
 
