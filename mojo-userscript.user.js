@@ -374,19 +374,3 @@ function templateLoaded() {
   customHTMLDisplay();
 }
 // $('footer section').load("https://admin.gotmojo.com/conjure2/editor/preview/2063/31255 .template-footer-global");
-
-// OS Notification on Successful Publish work
-/*
-<div class="notifications notifications-container" style="width: 300px; top: 0; right: 0;" >
-  <span>
-    <span class="notification-wrapper" style="transition: all 300ms ease 0s;">
-      <span class="vue-notification-template vue-notification success">
-        <span class="notification-content">Publish succeeded</span>
-      </span>
-    </span>
-  </span>
-</div>;
-
-
-
-*/
