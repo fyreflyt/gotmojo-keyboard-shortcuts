@@ -14,7 +14,7 @@ Here are the features for Version 1.4
 - Ctrl/Cmd-E: Preview
 - Ctrl/Cmd-1 through 5: Switch between Mobile and Extra Wide Desktop Responsive views
 - Ctrl/Cmd-Z: Undo
-- Ctrl-Cmd-Shift-Z: Undo
+- Ctrl-Cmd-Shift-Z: Redo
 - Ctrl/Cmd-Y: Redo
 - Esc key: Close dialog Windows
 - Delete/Backspace key: Delete selected element (New with 1.4.1)
