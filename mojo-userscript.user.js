@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name     Mojo Workflow enhancements
 // @description  Fixes some rough edges in Mojo and improves the workflow - by Mike Cordeiro
-// @version  1.4.5
+// @version  1.4.6
 // @grant    none
 // @match 	 *://admin.gotmojo.com/conjure2/*
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
@@ -218,12 +218,21 @@ var observer = new MutationObserver(function(mutations) {
       checkNode(mutations[i].addedNodes[j]);
     }
   }
+  mutations.forEach(function(mutation) {
+    if (mutation.attributeName == "id") {
+      console.log(mutation + " changed");
+      customHTMLDisplay();
+    }
+  });
+  // Code to detect changes in .page__container id should go here. I think
 });
 
 observer.observe(document.documentElement, {
   childList: true,
-  subtree: true
+  subtree: true,
+  attributes: true
 });
+
 
 /* Watches for a specific node to be added. Update to use a switch statement? */
 checkNode = function(addedNode) {
@@ -278,16 +287,16 @@ checkNode = function(addedNode) {
             block: "start" // or "end"
           });
       }
-    } else if (addedNode.matches(".color-picker")) {
-      if (document.querySelector(".color-picker") !== null) {
-        $(".color-picker").clickout(function() {
-          $(".color-picker")
-            .prev(".input-group")
-            .find(".form-input")
-            .simulateClick("click");
-          $(this).off("clickout");
-        });
-      }
+    // } else if (addedNode.matches(".color-picker")) {
+    //   if (document.querySelector(".color-picker") !== null) {
+    //     $(".color-picker").clickout(function() {
+    //       $(".color-picker")
+    //         .prev(".input-group")
+    //         .find(".form-input")
+    //         .simulateClick("click");
+    //       $(this).off("clickout");
+    //     });
+    //   }
     } else if (addedNode.matches(".conjure-selection-box")) {
       if (
         document.querySelector(".conjure-action-panel") !== null &&
@@ -308,6 +317,25 @@ checkNode = function(addedNode) {
         Push.create("Site published", {
           icon: "./Mojo-Logo-transparent-60w.png"
         });
+      } else if (
+        $(".notification-content:contains('Template Loaded')").length > 0
+      ) {
+        templateLoaded();
+      }
+    } else if (addedNode.matches(".a-tabs__item")) {
+      // Remembers which library you last selected and sets it back to that
+      if (document.querySelector(".library-header") !== null) {
+        if (Cookies.get("selectedLibrary") !== null) {
+          var openThisLibrary = Cookies.get("selectedLibrary");
+          $(
+            ".a-filter-line button.a-dropdown__button:contains('" + openThisLibrary + "')"
+          ).click();
+        }
+        $(".a-filter-line button.a-dropdown__button").click(function() {
+          var libraryButtonClicked = $.trim($(this).text());
+          Cookies.set("selectedLibrary", libraryButtonClicked);
+        });
+        $("input.a-search-box__field").focus();
       }
     } else if (addedNode.matches(".a-tabs__item")) {
       // Remembers which library you last selected and sets it back to that
@@ -327,3 +355,26 @@ checkNode = function(addedNode) {
     }
   }
 };
+
+// Displays Custom HTML fields by adding a texture to div's with 0 height and sets their height to 50.
+function customHTMLDisplay() {
+  $(".grid__cell > div").each(function() {
+    if ($(this).height() === 0) {
+      $(this)
+
+        .css({
+          "background-color": "#fff",
+          "background-image": `url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23bfbfbf' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E")`,
+          "text-align": "center",
+          "min-height": "50px"
+        })
+        .append("<p>Custom HTML</p>");
+    }
+  });
+}
+
+// Executes functions when the Mojo Template has loaded
+function templateLoaded() {
+  customHTMLDisplay();
+}
+// $('footer section').load("https://admin.gotmojo.com/conjure2/editor/preview/2063/31255 .template-footer-global");
